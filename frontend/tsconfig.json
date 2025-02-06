@@ -1,8 +1,22 @@
 {
   "files": [],
   "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" },
-    { "path": "./tsconfig.electron.json"}
-  ]
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.node.json"
+    },
+    {
+      "path": "./tsconfig.electron.json"
+    }
+  ],
+  "compilerOptions": {
+    "types": [
+      //      "./src/ui/types/electronAPI.d.ts",
+      //      "./src/ui/types/svg.d.ts",
+      //      "vite-plugin-svgr/client"
+      "vite/client"
+    ]
+  }
 }

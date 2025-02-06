@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import * as path from 'path';
 
 let mainWindow: BrowserWindow | null = null;
@@ -7,21 +7,26 @@ const isDev = !app.isPackaged;
 const createWindow = () => {
     mainWindow = new BrowserWindow({
         width: 1920,
-        height: 720,
+        height: 1080,
+        frame: false,
+        resizable: false,
+        backgroundColor: '#282c34',
         webPreferences: {
-            nodeIntegration: true,
+            nodeIntegration: false,
+            contextIsolation: true,
+            preload: path.join(__dirname, 'preload.js')
         },
     });
 
+    mainWindow.setMenuBarVisibility(false);
+
     if (isDev) {
-        // Load Vite + React app (wait for server)
         const VITE_DEV_SERVER_URL = 'http://localhost:5173';
 
         mainWindow.loadURL(VITE_DEV_SERVER_URL).catch((err) => {
             console.error('Failed to load Vite Dev Server:', err);
         });
     } else {
-        // Load built React files from dist folder
         mainWindow.loadFile(path.join(__dirname, '../dist/index.html'));
     }
 
@@ -29,6 +34,24 @@ const createWindow = () => {
         mainWindow = null;
     });
 };
+
+ipcMain.on("window-close", () => {
+    if (mainWindow) mainWindow.close();
+});
+
+ipcMain.on("window-minimize", () => {
+    if (mainWindow) mainWindow.minimize();
+});
+
+ipcMain.on("window-maximize", () => {
+    if (mainWindow) {
+        if (mainWindow.isMaximized()) {
+            mainWindow.restore();
+        } else {
+            mainWindow.maximize();
+        }
+    }
+});
 
 app.whenReady().then(() => {
     createWindow();
