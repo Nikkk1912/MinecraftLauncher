@@ -2,7 +2,6 @@
   "name": "frontend",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "main": "dist/electron.js",
   "scripts": {
     "dev1": "vite",
@@ -11,10 +10,11 @@
     "preview1": "vite preview",
 
     "start": "concurrently \"npm run frontend\" \"sleep 2 && electron .\"",
-    "dev": "concurrently \"npm run backend\" \"npm run frontend\" \"sleep 2 && npm run electron",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\" \"npm run electron dist/.",
+    "dev-front": "concurrently \"npm run frontend\" \"npm run electron dist/.",
     "frontend": "vite",
     "backend": "cd ../backend && mvn spring-boot:run",
-    "electron": "tsc -b && electron dist",
+    "electron": "tsc -b && electron .",
     "build": "vite build && electron-builder"
   },
   "dependencies": {
