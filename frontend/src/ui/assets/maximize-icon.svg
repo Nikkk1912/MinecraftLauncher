@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 40 40">
+    <defs>
+        <style>
+            .st0 {
+            fill: #78909c;
+            }
+
+            .st1 {
+            fill: #2e7d32;
+            }
+
+            .st2 {
+            fill: #66bb6a;
+            }
+
+            .st3 {
+            fill: #5d4037;
+            }
+
+            .st4 {
+            fill: #8b5a2b;
+            }
+
+            .st5 {
+            fill: #795548;
+            }
+
+            .st6 {
+            fill: #b0bec5;
+            }
+
+            .st7 {
+            fill: #1b5e20;
+            }
+
+            .st8 {
+            fill: #4caf50;
+            }
+
+            .st9 {
+            fill: #6d4c41;
+            }
+
+            .st10 {
+            fill: #a1887f;
+            }
+
+            .st11 {
+            fill: #81c784;
+            }
+
+            .st12 {
+            fill: #90a4ae;
+            }
+
+            .st13 {
+            fill: #388e3c;
+            }
+        </style>
+    </defs>
+    <g id="Layer2">
+        <rect class="st8" x="13.28" y="4.94" width="2.72" height="2.72"/>
+        <rect class="st2" x="16" y="4.94" width="2.72" height="2.72"/>
+        <rect class="st13" x="18.72" y="4.94" width="2.72" height="2.72"/>
+        <rect class="st11" x="21.44" y="4.94" width="2.72" height="2.72"/>
+        <rect class="st8" x="24.17" y="4.94" width="2.72" height="2.72"/>
+        <rect class="st1" x="26.89" y="4.94" width="2.72" height="2.72"/>
+        <rect class="st2" x="29.61" y="4.94" width="2.72" height="2.72"/>
+        <rect class="st7" x="32.33" y="4.94" width="2.72" height="2.72"/>
+        <rect class="st2" x="13.28" y="7.67" width="2.72" height="2.72"/>
+        <rect class="st13" x="32.33" y="10.39" width="2.72" height="2.72"/>
+        <rect class="st2" x="32.33" y="7.67" width="2.72" height="2.72"/>
+        <rect class="st10" x="32.33" y="13.11" width="2.72" height="2.72"/>
+        <rect class="st9" x="32.33" y="15.83" width="2.72" height="2.72"/>
+        <rect class="st10" x="32.33" y="18.56" width="2.72" height="2.72"/>
+        <rect class="st9" x="32.33" y="21.28" width="2.72" height="2.72"/>
+        <rect class="st3" x="29.61" y="24" width="2.72" height="2.72"/>
+        <rect class="st9" x="32.33" y="24" width="2.72" height="2.72"/>
+        <rect class="st13" x="13.28" y="10.39" width="2.72" height="2.72"/>
+        <rect class="st10" x="26.89" y="24" width="2.72" height="2.72"/>
+    </g>
+    <g id="Layer1">
+        <rect class="st8" x="5.11" y="13.11" width="2.72" height="2.72"/>
+        <rect class="st2" x="7.83" y="13.11" width="2.72" height="2.72"/>
+        <rect class="st13" x="10.56" y="13.11" width="2.72" height="2.72"/>
+        <rect class="st11" x="13.28" y="13.11" width="2.72" height="2.72"/>
+        <rect class="st8" x="16" y="13.11" width="2.72" height="2.72"/>
+        <rect class="st1" x="18.72" y="13.11" width="2.72" height="2.72"/>
+        <rect class="st2" x="21.44" y="13.11" width="2.72" height="2.72"/>
+        <rect class="st7" x="24.17" y="13.11" width="2.72" height="2.72"/>
+        <rect class="st2" x="5.11" y="15.83" width="2.72" height="2.72"/>
+        <rect class="st11" x="10.56" y="15.83" width="2.72" height="2.72"/>
+        <rect class="st1" x="16" y="18.56" width="2.72" height="2.72"/>
+        <rect class="st2" x="13.28" y="15.83" width="2.72" height="2.72"/>
+        <rect class="st11" x="16" y="15.83" width="2.72" height="2.72"/>
+        <rect class="st8" x="18.72" y="15.83" width="2.72" height="2.72"/>
+        <rect class="st13" x="24.17" y="18.56" width="2.72" height="2.72"/>
+        <rect class="st2" x="24.17" y="15.83" width="2.72" height="2.72"/>
+        <rect class="st4" x="5.11" y="18.56" width="2.72" height="2.72"/>
+        <rect class="st9" x="7.83" y="18.56" width="2.72" height="2.72"/>
+        <rect class="st10" x="10.56" y="18.56" width="2.72" height="2.72"/>
+        <rect class="st4" x="13.28" y="18.56" width="2.72" height="2.72"/>
+        <rect class="st5" x="7.83" y="15.83" width="2.72" height="2.72"/>
+        <rect class="st3" x="18.72" y="18.56" width="2.72" height="2.72"/>
+        <rect class="st4" x="21.44" y="18.56" width="2.72" height="2.72"/>
+        <rect class="st9" x="21.44" y="15.83" width="2.72" height="2.72"/>
+        <rect class="st3" x="5.11" y="21.28" width="2.72" height="2.72"/>
+        <rect class="st4" x="7.83" y="21.28" width="2.72" height="2.72"/>
+        <rect class="st9" x="10.56" y="21.28" width="2.72" height="2.72"/>
+        <rect class="st10" x="13.28" y="21.28" width="2.72" height="2.72"/>
+        <rect class="st9" x="16" y="21.28" width="2.72" height="2.72"/>
+        <rect class="st4" x="18.72" y="21.28" width="2.72" height="2.72"/>
+        <rect class="st3" x="21.44" y="21.28" width="2.72" height="2.72"/>
+        <rect class="st10" x="24.17" y="21.28" width="2.72" height="2.72"/>
+        <rect class="st4" x="5.11" y="24" width="2.72" height="2.72"/>
+        <rect class="st9" x="7.83" y="24" width="2.72" height="2.72"/>
+        <rect class="st10" x="10.56" y="24" width="2.72" height="2.72"/>
+        <rect class="st4" x="13.28" y="24" width="2.72" height="2.72"/>
+        <rect class="st5" x="16" y="24" width="2.72" height="2.72"/>
+        <rect class="st3" x="18.72" y="24" width="2.72" height="2.72"/>
+        <rect class="st4" x="21.44" y="24" width="2.72" height="2.72"/>
+        <rect class="st9" x="24.17" y="24" width="2.72" height="2.72"/>
+        <rect class="st3" x="5.11" y="26.72" width="2.72" height="2.72"/>
+        <rect class="st4" x="7.83" y="26.72" width="2.72" height="2.72"/>
+        <rect class="st9" x="10.56" y="26.72" width="2.72" height="2.72"/>
+        <rect class="st10" x="13.28" y="26.72" width="2.72" height="2.72"/>
+        <rect class="st9" x="16" y="26.72" width="2.72" height="2.72"/>
+        <rect class="st4" x="18.72" y="26.72" width="2.72" height="2.72"/>
+        <rect class="st3" x="21.44" y="26.72" width="2.72" height="2.72"/>
+        <rect class="st10" x="24.17" y="26.72" width="2.72" height="2.72"/>
+        <rect class="st4" x="5.11" y="29.44" width="2.72" height="2.72"/>
+        <rect class="st9" x="7.83" y="29.44" width="2.72" height="2.72"/>
+        <rect class="st10" x="10.56" y="29.44" width="2.72" height="2.72"/>
+        <rect class="st4" x="13.28" y="29.44" width="2.72" height="2.72"/>
+        <rect class="st5" x="16" y="29.44" width="2.72" height="2.72"/>
+        <rect class="st3" x="18.72" y="29.44" width="2.72" height="2.72"/>
+        <rect class="st4" x="21.44" y="29.44" width="2.72" height="2.72"/>
+        <rect class="st9" x="24.17" y="29.44" width="2.72" height="2.72"/>
+        <rect class="st10" x="5.11" y="32.17" width="2.72" height="2.72"/>
+        <rect class="st9" x="7.83" y="32.17" width="2.72" height="2.72"/>
+        <rect class="st4" x="10.56" y="32.17" width="2.72" height="2.72"/>
+        <rect class="st4" x="13.28" y="32.17" width="2.72" height="2.72"/>
+        <rect class="st5" x="16" y="32.17" width="2.72" height="2.72"/>
+        <rect class="st4" x="18.72" y="32.17" width="2.72" height="2.72"/>
+        <rect class="st3" x="21.44" y="32.17" width="2.72" height="2.72"/>
+        <rect class="st9" x="24.17" y="32.17" width="2.72" height="2.72"/>
+        <rect class="st6" x="10.56" y="24" width="2.72" height="2.72"/>
+        <rect class="st12" x="18.72" y="24" width="2.72" height="2.72"/>
+        <rect class="st0" x="7.83" y="29.44" width="2.72" height="2.72"/>
+        <rect class="st6" x="16" y="32.17" width="2.72" height="2.72"/>
+    </g>
+</svg>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <rect width="24" height="24" fill="#ef9a9a"/> <!-- Pink Background -->
+    <rect x="0" y="9" width="3" height="3" fill="black"/> <!-- Left Eye -->
+    <rect x="3" y="9" width="3" height="3" fill="white"/>
+
+    <rect x="21" y="9" width="3" height="3" fill="black"/> <!-- Right Eye -->
+    <rect x="18" y="9" width="3" height="3" fill="white"/>
+
+    <rect x="6" y="12" width="12" height="9" fill="#ffcdd2"/> <!-- Nose -->
+
+    <rect x="6" y="15" width="3" height="3" fill="#e57373"/> <!-- Left Nostril -->
+    <rect x="9" y="15" width="6" height="3" fill="#ff8a80"/> <!-- Middle nose -->
+    <rect x="15" y="15" width="3" height="3" fill="#e57373"/> <!-- Right Nostril -->
+</svg>

@@ -1,0 +1,19 @@
+@use "variables";
+
+body {
+  background-color: variables.$primary-color;
+  font-family: variables.$font-stack;
+  padding-top: 30px;
+
+}
+
+:root {
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: variables.$secondary-color;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
