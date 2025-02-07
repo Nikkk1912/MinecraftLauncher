@@ -8,9 +8,10 @@ const createWindow = () => {
     mainWindow = new BrowserWindow({
         width: 1920,
         height: 1080,
+        minWidth: 960,
+        minHeight: 540,
         frame: false,
-        resizable: false,
-        backgroundColor: '#282c34',
+        backgroundColor: '#2d2d2d',
         webPreferences: {
             nodeIntegration: false,
             contextIsolation: true,

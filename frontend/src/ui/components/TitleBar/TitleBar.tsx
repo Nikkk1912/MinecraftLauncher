@@ -11,13 +11,13 @@ const TitleBar: React.FC = () => {
             <div className={"title"}>Shedevro Launcher</div>
             <div className={"window-controls"}>
                 <button className={"btn minimize"} onClick={() => window.electronAPI.minimizeWindow()}>
-                    <MinimizeIcon className={"icon"} />
+                    <MinimizeIcon className={"minimize-icon"} />
                 </button>
                 <button className={"btn maximize"} onClick={() => window.electronAPI.maximizeWindow()}>
-                    <MaximizeIcon className={"icon"} />
+                    <MaximizeIcon className={"maximize-icon"} />
                 </button>
                 <button className={"btn close"} onClick={() => window.electronAPI.closeWindow()}>
-                    <CloseIcon className={"icon"} />
+                    <CloseIcon className={"close-icon"} />
                 </button>
             </div>
         </div>
