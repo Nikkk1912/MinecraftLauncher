@@ -1,5 +1,6 @@
 package org.mine.launcher.controllers;
 
+import com.mashape.unirest.http.exceptions.UnirestException;
 import org.mine.launcher.service.VersionService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,9 +18,15 @@ public class VersionController {
         this.versionService = versionService;
     }
 
-    @GetMapping()
+    @GetMapping("/installed")
     public List<String> getAllInstalled() {
         return versionService.getInstalledVersions();
     }
+
+    @GetMapping("/all")
+    public List<String> getAllVersions() {
+        return versionService.getAllVersions();
+    }
+
 
 }

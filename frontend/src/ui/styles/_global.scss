@@ -1,10 +1,10 @@
 @use "variables";
 
 body {
-  background-color: variables.$primary-color;
+  background-color: variables.$secondary-color;
   font-family: variables.$font-stack;
-  padding-top: 30px;
-
+  padding-top: 40px;
+  height: calc(100vh - 8vh);
 }
 
 :root {
@@ -12,6 +12,7 @@ body {
   color: rgba(255, 255, 255, 0.87);
   background-color: variables.$secondary-color;
 
+  //height: calc(100vh - 50px);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;

@@ -1,0 +1,72 @@
+@use '../../styles/_variables.scss';
+
+.scrollable-container {
+  //height: 100%; /* Ensure the container takes up the full height of the tab */
+  //overflow-y: auto; /* Allow scrolling within the version tab */
+
+  height: calc(100% - 10%); /* Adjust height to fit inside the view */
+  overflow-y: auto; /* Enable scrolling */
+  padding-bottom: 20px; /* Ensure there's enough space at the bottom for content */
+  scroll-padding-bottom: 20px; /* Ensure the last items are not cut off */
+  scrollbar-width: none; /* Remove the scrollbar */
+}
+
+.scrollable-container::-webkit-scrollbar {
+  display: none; /* Hide scrollbar */
+}
+
+.scrollable-container {
+  scrollbar-width: none; /* Hide scrollbar in Firefox */
+}
+
+/* Maintain proper spacing between version items */
+.version-group-container {
+  margin-bottom: 10px;
+}
+
+.group-title {
+  cursor: pointer;
+  font-size: 2rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  background-color: #4b4b4b; /* Update to a color from your variables */
+  color: white;
+}
+
+.group-title:hover {
+  background-color: #e0e0e0;
+  color: #4b4b4b;
+  border-radius: 5px;
+}
+
+.toggle-icon {
+  margin-left: 8px;
+  font-size: 14px;
+}
+
+.version-group {
+  margin-top: 5px;
+  padding-left: 15px;
+}
+
+.version-item {
+  padding: 5px;
+  margin: 3px 0;
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.installed {
+  background-color: white;
+  color: black;
+}
+
+.not-installed {
+  background-color: grey;
+  color: lightgray;
+}

@@ -1,0 +1,41 @@
+@use '_variables.scss';
+
+.main-body {
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 50px); /* Subtract the height of the TitleBar */
+  background-color: variables.$secondary-color;
+  padding: 20px; /* Space around the tabs */
+  box-sizing: border-box; /* Include padding in width and height calculation */
+  gap: 2vh; /* Gap between the tabs */
+  font-size: 1rem;
+
+  .version-tab,
+  .middle-tab,
+  .right-tab {
+    background-color: #2d2d2d;
+    border-radius: 20px; /* Rounded corners */
+    padding: 20px;
+    box-sizing: border-box; /* To ensure padding doesn't affect width */
+    flex-grow: 1; /* Make the tabs expand equally */
+    overflow: hidden; /* Prevent scrollbars inside the tabs */
+    font-size: 1rem;
+    min-height: 400px;
+  }
+
+  .version-tab {
+    flex: 1; /* Make it take up available space */
+  }
+
+  .middle-tab {
+    flex: 2; /* Middle tab should take more space */
+  }
+
+  .right-tab {
+    flex: 1; /* Right tab should take equal space as the version tab */
+  }
+
+  .h1 {
+    font-size: 1rem;
+  }
+}

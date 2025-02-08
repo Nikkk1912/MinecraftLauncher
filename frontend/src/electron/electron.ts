@@ -1,15 +1,15 @@
-import { app, BrowserWindow, ipcMain } from 'electron';
+import {app, BrowserWindow, ipcMain} from 'electron';
 import * as path from 'path';
 
 let mainWindow: BrowserWindow | null = null;
 const isDev = !app.isPackaged;
 
-const createWindow = () => {
+function createMainWindow() {
     mainWindow = new BrowserWindow({
         width: 1920,
         height: 1080,
         minWidth: 960,
-        minHeight: 540,
+        minHeight: 700,
         frame: false,
         backgroundColor: '#2d2d2d',
         webPreferences: {
@@ -18,7 +18,6 @@ const createWindow = () => {
             preload: path.join(__dirname, 'preload.js')
         },
     });
-
     mainWindow.setMenuBarVisibility(false);
 
     if (isDev) {
@@ -34,32 +33,35 @@ const createWindow = () => {
     mainWindow.on('closed', () => {
         mainWindow = null;
     });
-};
 
-ipcMain.on("window-close", () => {
-    if (mainWindow) mainWindow.close();
-});
+    ipcMain.on("window-close", () => {
+        if (mainWindow) mainWindow.close();
+    });
 
-ipcMain.on("window-minimize", () => {
-    if (mainWindow) mainWindow.minimize();
-});
+    ipcMain.on("window-minimize", () => {
+        if (mainWindow) mainWindow.minimize();
+    });
 
-ipcMain.on("window-maximize", () => {
-    if (mainWindow) {
-        if (mainWindow.isMaximized()) {
-            mainWindow.restore();
-        } else {
-            mainWindow.maximize();
+    ipcMain.on("window-maximize", () => {
+        if (mainWindow) {
+            if (mainWindow.isMaximized()) {
+                mainWindow.restore();
+            } else {
+                mainWindow.maximize();
+            }
         }
-    }
-});
+    });
+
+    mainWindow.once('ready-to-show', () => {
+        mainWindow?.show();
+    });
+
+}
 
 app.whenReady().then(() => {
-    createWindow();
-
-    app.on('activate', () => {
-        if (BrowserWindow.getAllWindows().length === 0) createWindow();
-    });
+    setTimeout(() => {
+        createMainWindow();
+    }, 2000);
 });
 
 app.on('window-all-closed', () => {
