@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import axios from 'axios';
 import './VersionTab.scss';
 
 type MinecraftVersion = string;
 type InstalledVersion = string;
 
-const VersionTab: React.FC = () => {
+interface VersionTabProps {
+    onVersionSelect: (version: string, isInstalled: boolean) => void;
+}
+
+const VersionTab: React.FC<VersionTabProps> = ({ onVersionSelect }: VersionTabProps) => {
     const [versions, setVersions] = useState<MinecraftVersion[]>([]);
     const [installedVersions, setInstalledVersions] = useState<InstalledVersion[]>([]);
     const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>({});
@@ -32,29 +36,10 @@ const VersionTab: React.FC = () => {
             .finally(() => setIsLoading(false)); // Stop loading when done
     };
 
-    useEffect(() => {
-        fetchVersions();
-    }, []);
+    useEffect(() => { fetchVersions(); }, []);
 
-    if (isLoading) {
-        return <div style={{ textAlign: "center", padding: "20px" }}>
-            Loading...
-        </div>;
-    }
-    if (error) {
-        fetchVersions();
-    }
-
-    // const groupVersions = () => {
-    //     return versions.reduce((groups: Record<string, MinecraftVersion[]>, version) => {
-    //         const majorVersion = version.split('.')[1];
-    //         if (!groups[majorVersion]) {
-    //             groups[majorVersion] = [];
-    //         }
-    //         groups[majorVersion].push(version);
-    //         return groups;
-    //     }, {});
-    // };
+    if (isLoading) { return <div style={{textAlign: "center", padding: "20px"}}> Loading... </div>; }
+    if (error) { fetchVersions(); }
 
     const sortVersions = (a: string, b: string) => {
         const parseVersion = (version: string) => version.split('.').map(Number);
@@ -77,16 +62,13 @@ const VersionTab: React.FC = () => {
 
             if (version.toLowerCase().includes("forge")) {
                 groupKey = "Forge";
-            }
-            else if (version.toLowerCase().includes("pre")  || version.toLowerCase().includes("rc")) {
+            } else if (version.toLowerCase().includes("pre") || version.toLowerCase().includes("rc")) {
                 // Handles "pre" and "rc" versions
                 groupKey = "Others";
-            }
-            else if (/^\d+\.\d+$/.test(version)) {
+            } else if (/^\d+\.\d+$/.test(version)) {
                 // Matches "1.21" (two numbers)
                 groupKey = version;
-            }
-            else if (/^\d+\.\d+\.\d+$/.test(version)) {
+            } else if (/^\d+\.\d+\.\d+$/.test(version)) {
                 // Matches "1.21.1" (three numbers)
                 const parts = version.split('.');
                 groupKey = `${parts[0]}.${parts[1]}`; // Convert "1.21.1" → "1.21"
@@ -101,16 +83,12 @@ const VersionTab: React.FC = () => {
         }, {});
     };
 
-    // Generate grouped versions
     const groupedVersions = groupVersions();
 
-
-    // Sort version groups numerically
     const sortedGroups = Object.keys(groupedVersions)
         .filter(key => key !== "Snapshots" && key !== "Forge")
         .sort(sortVersions);
 
-    // Ensure "Snapshots" and "Forge" remain at the bottom
     if (groupedVersions["Forge"]) sortedGroups.push("Forge");
     if (groupedVersions["Snapshots"]) sortedGroups.push("Snapshots");
 
@@ -126,39 +104,7 @@ const VersionTab: React.FC = () => {
         }));
     };
 
-
-
     return (
-        // <div className="scrollable-container">
-        //     {Object.keys(groupedVersions)
-        //         .sort((a, b) => Number(b) - Number(a))
-        //         .map(majorVersion => (
-        //             <div key={majorVersion} className="version-group-container">
-        //                 <h3
-        //                     className="group-title"
-        //                     onClick={() => toggleGroup(majorVersion)}
-        //                 >
-        //                     {`1.${majorVersion}`}
-        //                     <span className="toggle-icon">
-        //                         {expandedGroups[majorVersion] ? "▼" : "▶"} {/* Arrow icon */}
-        //                     </span>
-        //                 </h3>
-        //                 {expandedGroups[majorVersion] && (
-        //                     <div className="version-group">
-        //                         {groupedVersions[majorVersion].map(version => (
-        //                             <div
-        //                                 key={version}
-        //                                 className={`version-item ${isInstalled(version) ? 'installed' : 'not-installed'}`}
-        //                             >
-        //                                 {version}
-        //                             </div>
-        //                         ))}
-        //                     </div>
-        //                 )}
-        //             </div>
-        //         ))}
-        // </div>
-
         <div className="scrollable-container">
             {sortedGroups
                 .map(majorVersion => (
@@ -182,6 +128,7 @@ const VersionTab: React.FC = () => {
                                     <div
                                         key={version}
                                         className={`version-item ${isInstalled(version) ? 'installed' : 'not-installed'}`}
+                                        onClick={() => onVersionSelect(version, isInstalled(version))}
                                     >
                                         {version}
                                     </div>
