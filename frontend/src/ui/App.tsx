@@ -3,6 +3,7 @@ import './styles/App.scss'
 import { useState} from "react";
 import TitleBar from "./components/TitleBar/TitleBar.tsx";
 import VersionTab from "./components/VersionTab/VersionTab.tsx";
+import MainTab from "./components/MainTab/MainTab.tsx";
 
 function App() {
     const [selectedVersion, setSelectedVersion] = useState<string | null> (null);
@@ -11,6 +12,7 @@ function App() {
     const handleVersionSelect = (version: string, isInstalled: boolean ) => {
         setSelectedVersion(version);
         setIsVersionInstalled(isInstalled);
+        console.log(isInstalled);
     }
 
     return (
@@ -24,7 +26,7 @@ function App() {
                     <VersionTab onVersionSelect={handleVersionSelect} />
                 </div>
                 <div className={"middle-tab"}>
-                    {selectedVersion} , {isVersionInstalled}
+                    <MainTab version={selectedVersion} isInstalled={isVersionInstalled} />
                 </div>
                 <div className={"right-tab"}>
                     right

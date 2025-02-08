@@ -1,10 +1,9 @@
 package org.mine.launcher.controllers;
 
 import org.mine.launcher.service.ExecuteService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/execute")
@@ -17,7 +16,9 @@ public class ExecuteController {
     }
 
     @PostMapping
-    public String runGame(@RequestParam String versionNum, @RequestParam String playerName) {
+    public String runGame(@RequestBody Map<String, String> request) {
+        String versionNum = request.get("versionNum");
+        String playerName = request.get("playerName");
         executeService.executeCommand(versionNum, playerName);
         return "Game is running";
     }

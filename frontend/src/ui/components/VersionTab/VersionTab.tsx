@@ -105,7 +105,9 @@ const VersionTab: React.FC<VersionTabProps> = ({ onVersionSelect }: VersionTabPr
     };
 
     return (
-        <div className="scrollable-container">
+        <div className="scrollable-container"
+        // onClick={() => fetchVersions()}
+        >
             {sortedGroups
                 .map(majorVersion => (
                     <div key={majorVersion} className="version-group-container">

@@ -1,25 +1,21 @@
 @use '../../styles/_variables.scss';
 
 .scrollable-container {
-  //height: 100%; /* Ensure the container takes up the full height of the tab */
-  //overflow-y: auto; /* Allow scrolling within the version tab */
-
-  height: calc(100% - 10%); /* Adjust height to fit inside the view */
-  overflow-y: auto; /* Enable scrolling */
-  padding-bottom: 20px; /* Ensure there's enough space at the bottom for content */
-  scroll-padding-bottom: 20px; /* Ensure the last items are not cut off */
-  scrollbar-width: none; /* Remove the scrollbar */
+  height: calc(100% - 10%);
+  overflow-y: auto;
+  padding-bottom: 20px;
+  scroll-padding-bottom: 20px;
+  scrollbar-width: none;
 }
 
 .scrollable-container::-webkit-scrollbar {
-  display: none; /* Hide scrollbar */
+  display: none;
 }
 
 .scrollable-container {
-  scrollbar-width: none; /* Hide scrollbar in Firefox */
+  scrollbar-width: none;
 }
 
-/* Maintain proper spacing between version items */
 .version-group-container {
   margin-bottom: 10px;
 }
@@ -32,7 +28,7 @@
   align-items: center;
   justify-content: center;
   padding: 5px;
-  background-color: #4b4b4b; /* Update to a color from your variables */
+  background-color: #4b4b4b;
   color: white;
 }
 
