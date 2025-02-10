@@ -1,6 +1,5 @@
 package org.mine.launcher.controllers;
 
-import com.mashape.unirest.http.exceptions.UnirestException;
 import org.mine.launcher.service.VersionService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,11 +9,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/version")
-public class VersionController {
+public class VersionManifestController {
 
     private final VersionService versionService;
 
-    public VersionController(VersionService versionService) {
+    public VersionManifestController(VersionService versionService) {
         this.versionService = versionService;
     }
 
