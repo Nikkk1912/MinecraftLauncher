@@ -11,13 +11,18 @@ import java.util.ArrayList;
 
 @Service
 public class CommandConstructor {
-    public static final String COMMAND_TEMPLATE = "\"%s\" -Xmx4G -Xms2G -cp \"%s\" %s -Djava.library.path=\"\" --username %s --version %s --gameDir \"%s\" --assetsDir \"%s\" --assetIndex %s --accessToken offline";
-    // JavaPath maxRam minRam -cp classPath mainClass playerName version gameDir assetsPath assetsIndex
+
     private final ConfigService configService;
 
     public CommandConstructor(ConfigService configService) {
         this.configService = configService;
     }
+
+
+    public static final String COMMAND_TEMPLATE = "\"%s\" -Xmx4G -Xms2G -cp \"%s\" %s -Djava.library.path=\"\" --username %s --version %s --gameDir \"%s\" --assetsDir \"%s\" --assetIndex %s --accessToken offline";
+    // JavaPath maxRam minRam -cp classPath mainClass playerName version gameDir assetsPath assetsIndex
+
+
 
     public String assembleLaunchCommand(String versionNum, String playerName) {
         String gameDir = configService.getSetting("minecraft_home");
