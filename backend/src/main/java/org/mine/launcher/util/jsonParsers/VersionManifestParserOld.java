@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class VersionManifestParser {
+public class VersionManifestParserOld {
 
     public static List<String> parseVersionManifest(com.mashape.unirest.http.JsonNode manifest) {
         List<java.lang.String> versionsList = new ArrayList<>();
