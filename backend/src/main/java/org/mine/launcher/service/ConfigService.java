@@ -6,19 +6,23 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Properties;
 
 @Service
 public class ConfigService {
     private final String configFilePath;
+    private final String launcherFolderPath;
     private final Properties properties = new Properties();
 
     public ConfigService() {
         String os = System.getProperty("os.name").toLowerCase();
         if (os.contains("win")) {
-            configFilePath = System.getenv("APPDATA") + "\\MyLauncher\\config.properties";
+            launcherFolderPath = System.getenv("APPDATA") + "\\MyLauncher";
+            configFilePath = launcherFolderPath + "\\config.properties";
         } else {
-            configFilePath = System.getProperty("user.home") + "/.config/MyLauncher/config.properties";
+            launcherFolderPath = System.getProperty("user.home") + "/.config/MyLauncher";
+            configFilePath = launcherFolderPath + "/config.properties";
         }
 
         File file = new File(configFilePath);
@@ -60,5 +64,9 @@ public class ConfigService {
         } catch (IOException e) {
             System.err.println("Error saving settings: " + e.getMessage());
         }
+    }
+
+    public Path getLauncherFolderPath() {
+        return Path.of(launcherFolderPath);
     }
 }
