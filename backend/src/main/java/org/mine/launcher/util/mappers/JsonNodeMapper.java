@@ -1,7 +1,9 @@
 package org.mine.launcher.util.mappers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.stereotype.Component;
 
+@Component
 public class JsonNodeMapper {
 
     public static com.fasterxml.jackson.databind.JsonNode UnirestToJacksonJsonNode(com.mashape.unirest.http.JsonNode unirestJsonNode) {

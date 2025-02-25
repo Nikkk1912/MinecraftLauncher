@@ -1,11 +1,7 @@
 package org.mine.launcher.service;
 
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
 import org.mine.launcher.util.api.VersionManifestClient;
-import org.mine.launcher.util.jsonParsers.VersionManifestParser;
+import org.mine.launcher.util.jsonParsers.VersionManifestJsonParser;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -47,7 +43,7 @@ public class VersionService {
     }
 
     public List<String> getAllVersions() {
-        return VersionManifestParser.parseVersionManifest(versionManifestClient.getVersionManifestJson());
+        return VersionManifestJsonParser.parseVersionManifest(versionManifestClient.getVersionManifestJson());
     }
 
 }

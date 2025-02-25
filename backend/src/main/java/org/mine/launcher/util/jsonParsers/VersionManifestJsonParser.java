@@ -1,11 +1,15 @@
 package org.mine.launcher.util.jsonParsers;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import org.mine.launcher.exceptions.VersionNotFoundInManifestException;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class VersionManifestParser {
+@Component
+public class VersionManifestJsonParser {
 
     public static List<String> parseVersionManifest(JsonNode manifest) {
         List<String> versionsList = new ArrayList<>();
@@ -26,5 +30,23 @@ public class VersionManifestParser {
         }
 
         return versionsList;
+    }
+
+    public static String getVersionLinkByVersionNumber(String version, JsonNode manifest) {
+        String link = null;
+        JsonNode versions = manifest.get("versions");
+
+        for (JsonNode versionNode : versions) {
+            if (versionNode.path("id").asText().equals(version)) {
+                link = versionNode.path("url").asText();
+            }
+        }
+
+        if (link != null)
+        {
+            return link;
+        } else {
+            throw new VersionNotFoundInManifestException(version);
+        }
     }
 }
