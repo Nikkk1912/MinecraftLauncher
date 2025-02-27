@@ -47,6 +47,7 @@ public class LibrariesHandler {
                 CompletableFuture.runAsync(() -> FileDownloader.downloadFile(url, targetFile), executor);
             }
         }
+        System.out.println("Libraries downloading complete");
     }
 
     private static boolean isAllowed(JsonNode lib, String osName) {
