@@ -1,23 +1,21 @@
-package org.mine.launcher.util;
+package org.mine.launcher.util.handlers;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import org.mine.launcher.util.FileDownloader;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
+import java.nio.file.Path;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class LibrariesHandler
-{
+@Component
+public class LibrariesHandler {
     private static final ExecutorService executor = Executors.newFixedThreadPool(10);
 
-    public static void handleLibraries(String librariesPath, boolean isReload, JsonNode versionJson) {
-        File libFolder = new File(librariesPath);
+    public static void handleLibraries(Path librariesPath, boolean isReload, JsonNode versionJson) {
+        File libFolder = librariesPath.toFile();
         if (!libFolder.exists()) {
             libFolder.mkdirs();
         }
@@ -46,7 +44,7 @@ public class LibrariesHandler
             File targetFile = new File(libFolder, path);
 
             if (isReload || !targetFile.exists() || targetFile.length() != size) {
-                CompletableFuture.runAsync(() -> downloadLibrary(url, targetFile), executor);
+                CompletableFuture.runAsync(() -> FileDownloader.downloadFile(url, targetFile), executor);
             }
         }
     }
@@ -68,25 +66,5 @@ public class LibrariesHandler
             }
         }
         return true;
-    }
-
-    private static void downloadLibrary(String url, File targetFile) {
-        try {
-            System.out.println("Downloading: " + url);
-            targetFile.getParentFile().mkdirs();
-            HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-            connection.setRequestMethod("GET");
-            connection.setConnectTimeout(5000);
-            connection.setReadTimeout(5000);
-
-            try (var inputStream = connection.getInputStream()) {
-                Files.copy(inputStream, targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-            }
-
-            System.out.println("Downloaded: " + targetFile.getAbsolutePath());
-        } catch (IOException e) {
-            System.err.println("Failed to download: " + url);
-            e.printStackTrace();
-        }
     }
 }

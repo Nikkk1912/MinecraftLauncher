@@ -1,9 +1,7 @@
 package org.mine.launcher.util.jsonParsers;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import org.springframework.stereotype.Component;
 
-@Component
 public class VersionJsonParser {
 
     public static String getAssetIndex(JsonNode versionJson) {

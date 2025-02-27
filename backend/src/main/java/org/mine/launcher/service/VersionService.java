@@ -11,8 +11,8 @@ import java.util.List;
 @Service
 public class VersionService {
 
-    private ConfigService configService;
-    private VersionManifestClient versionManifestClient;
+    private final ConfigService configService;
+    private final VersionManifestClient versionManifestClient;
 
     public VersionService(ConfigService configService, VersionManifestClient versionManifestClient) {
         this.configService = configService;
@@ -45,5 +45,4 @@ public class VersionService {
     public List<String> getAllVersions() {
         return VersionManifestJsonParser.parseVersionManifest(versionManifestClient.getVersionManifestJson());
     }
-
 }

@@ -2,13 +2,11 @@ package org.mine.launcher.util.jsonParsers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.mine.launcher.exceptions.VersionNotFoundInManifestException;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-@Component
 public class VersionManifestJsonParser {
 
     public static List<String> parseVersionManifest(JsonNode manifest) {
