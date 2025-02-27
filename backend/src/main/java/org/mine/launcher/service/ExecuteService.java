@@ -1,6 +1,5 @@
 package org.mine.launcher.service;
 
-import org.mine.launcher.util.CommandConstructor;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -10,7 +9,7 @@ import java.io.InputStreamReader;
 
 @Service
 public class ExecuteService {
-
+/*
     private final CommandConstructor commandConstructor;
 
     public ExecuteService(CommandConstructor commandConstructor) {
@@ -44,5 +43,5 @@ public class ExecuteService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 }
