@@ -1,10 +1,7 @@
 package org.mine.launcher.service;
 
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
-import org.mine.launcher.util.jsonParsers.VersionManifestParserOld;
+import org.mine.launcher.util.api.VersionManifestClient;
+import org.mine.launcher.util.jsonParsers.VersionManifestJsonParser;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -14,12 +11,12 @@ import java.util.List;
 @Service
 public class VersionService {
 
-    private static final String VERSION_MANIFEST_URL = "https://launchermeta.mojang.com/mc/game/version_manifest_v2.json";
-
     private final ConfigService configService;
+    private final VersionManifestClient versionManifestClient;
 
-    public VersionService(ConfigService configService) {
+    public VersionService(ConfigService configService, VersionManifestClient versionManifestClient) {
         this.configService = configService;
+        this.versionManifestClient = versionManifestClient;
     }
 
     public List<String> getInstalledVersions() {
@@ -46,17 +43,6 @@ public class VersionService {
     }
 
     public List<String> getAllVersions() {
-        return VersionManifestParserOld.parseVersionManifest(fetchAvailableMinecraftVersions());
-    }
-
-    private JsonNode fetchAvailableMinecraftVersions(){
-        try {
-            HttpResponse<JsonNode> jsonResponse = Unirest.get(VERSION_MANIFEST_URL)
-                    .asJson();
-            return jsonResponse.getBody();
-        } catch (UnirestException uni) {
-            uni.printStackTrace();
-        }
-        return null;
+        return VersionManifestJsonParser.parseVersionManifest(versionManifestClient.getVersionManifestJson());
     }
 }

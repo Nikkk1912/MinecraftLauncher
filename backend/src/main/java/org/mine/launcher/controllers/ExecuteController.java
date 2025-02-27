@@ -23,7 +23,7 @@ public class ExecuteController {
         String versionNum = request.get("versionNum");
         String playerName = request.get("playerName");
         configService.saveSetting("playerName", playerName);
-        executeService.executeCommand(versionNum, playerName);
+//        executeService.executeCommand(versionNum, playerName);
         return "Game is running";
     }
 }
