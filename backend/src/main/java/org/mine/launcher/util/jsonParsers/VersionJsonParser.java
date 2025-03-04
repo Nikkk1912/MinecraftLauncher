@@ -17,7 +17,13 @@ public class VersionJsonParser {
     }
 
     public static String getJavaComponent(JsonNode versionJson) {
-        return versionJson.get("javaVersion").get("component").asText();
+        try {
+            String result = versionJson.get("javaVersion").get("component").asText();
+            return result;
+        } catch (NullPointerException e) {
+            System.err.println("Issue - no java info in version manifest");
+            return "java-runtime-delta";
+        }
     }
 
     public static String getJavaVersion(JsonNode versionJson) {

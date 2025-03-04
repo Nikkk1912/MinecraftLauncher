@@ -5,12 +5,7 @@ import org.mine.launcher.util.FileDownloader;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
@@ -41,5 +36,6 @@ public class AssetsHandler {
                 CompletableFuture.runAsync(() -> FileDownloader.downloadFile(assetUrl, assetFile), executor);
             }
         }
+        System.out.println("Assets downloading complete");
     }
 }
