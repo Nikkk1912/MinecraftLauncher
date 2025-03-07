@@ -1,4 +1,4 @@
-package org.mine.launcher.util.arguments.game;
+package org.mine.launcher.util.argumentsOLD.game;
 
 import com.fasterxml.jackson.databind.JsonNode;
 

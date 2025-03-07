@@ -1,4 +1,4 @@
-package org.mine.launcher.util.arguments.jvm;
+package org.mine.launcher.util.argumentsOLD.jvm;
 
 import com.fasterxml.jackson.databind.JsonNode;
 

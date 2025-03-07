@@ -3,6 +3,7 @@ package org.mine.launcher.util.handlers;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.mine.launcher.util.FileDownloader;
+import org.mine.launcher.util.OsDetector;
 
 import java.io.IOException;
 import java.net.URL;
@@ -19,7 +20,7 @@ public class JvmHandler {
     private static final ExecutorService executor = Executors.newFixedThreadPool(10);
 
     public static Path getJava(Path jvmFolderPath, JsonNode jvmManifestJson, String jvmType) {
-        String platform = detectPlatform();
+        String platform = OsDetector.detectPlatform();
         Path jvmInstallPath = jvmFolderPath.resolve(jvmType);
         Path javaExecutable = jvmInstallPath.resolve("bin/java");
 
@@ -94,34 +95,5 @@ public class JvmHandler {
             }
         }
         System.out.println("Jvm downloading complete");
-    }
-
-    private static String detectPlatform() {
-        String osName = System.getProperty("os.name").toLowerCase();
-        String osArch = System.getProperty("os.arch").toLowerCase();
-
-        if (osName.contains("windows")) {
-            if (osArch.contains("arm")) {
-                return "windows-arm64";
-            } else {
-                String bits = System.getProperty("sun.arch.data.model");
-                if (bits.contains("64")) {
-                    return "windows-x64";
-                } else {
-                    return "windows-86";
-                }
-            }
-        } else if (osName.contains("mac")) {
-            if (osArch.contains("arm")) {
-                return "mac-os-arm64";
-            } else {
-                return "mac-os";
-            }
-        } else if (osName.contains("linux-i386")) {
-            return "linux-i386";
-        } else if (osName.contains("linux")) {
-            return "linux";
-        }
-        return "linux";
     }
 }

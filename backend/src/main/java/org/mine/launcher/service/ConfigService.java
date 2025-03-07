@@ -69,4 +69,24 @@ public class ConfigService {
     public Path getLauncherFolderPath() {
         return Path.of(launcherFolderPath);
     }
+
+    public String getGameDirectory() {
+        return Path.of(launcherFolderPath).resolve(".minecraft").toString();
+    }
+
+    public String getAssetsDir() {
+        return Path.of(launcherFolderPath).resolve(".minecraft").resolve("assets").toString();
+    }
+
+    public String getLibrariesDir() {
+        return Path.of(launcherFolderPath).resolve(".minecraft").resolve("libraries").toString();
+    }
+
+    public String getJavaRunFile(String javaType) {
+        return Path.of(launcherFolderPath).resolve("jvm").resolve(javaType).resolve("bin").resolve("java.exe").toFile().toString();
+    }
+
+    public String getVersionJarFilePath(String version) {
+        return Path.of(launcherFolderPath).resolve(".minecraft").resolve("versions").resolve(version).resolve(version + ".jar").toFile().toString();
+    }
 }

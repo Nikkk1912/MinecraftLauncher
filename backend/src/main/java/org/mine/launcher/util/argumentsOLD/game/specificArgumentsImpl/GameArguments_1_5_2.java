@@ -1,8 +1,7 @@
-package org.mine.launcher.util.arguments.game.specificArgumentsImpl;
+package org.mine.launcher.util.argumentsOLD.game.specificArgumentsImpl;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import org.mine.launcher.util.arguments.game.AbstractGameArguments;
-import org.mine.launcher.util.arguments.game.GameArgumentsProvider;
+import org.mine.launcher.util.argumentsOLD.game.GameArgumentsProvider;
 
 import java.nio.file.Path;
 import java.util.Arrays;

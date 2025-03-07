@@ -5,6 +5,10 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+*.txt
+*.log
+
+backend/logs/*.log
 logs/
 
 ### STS ###

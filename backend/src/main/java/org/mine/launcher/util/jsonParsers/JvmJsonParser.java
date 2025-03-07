@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class jvmJsonParser {
+public class JvmJsonParser {
 
     public static List<String> getPlatformsList(JsonNode jvmManifestJson) {
         List<String> platforms = new ArrayList<>();
