@@ -48,7 +48,6 @@ public class JvmHandler {
         }
 
         String manifestUrl = manifest.get("url").asText();
-//        System.out.println("Downloading manifest: " + manifestUrl);
 
         try {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -81,7 +80,6 @@ public class JvmHandler {
             if (fileNode.has("type") && "directory".equals(fileNode.get("type").asText())) {
                 try {
                     Files.createDirectories(targetPath);
-//                    System.out.println("Created directory: " + targetPath);
                 } catch (IOException e) {
                     System.err.println("Failed to create directory: " + targetPath);
                     e.printStackTrace();

@@ -23,9 +23,8 @@ public class FileDownloader {
             connection.setReadTimeout(5000);
 
             try (var inputStream = connection.getInputStream()) {
-                Files.copy(inputStream, targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                Files.copy(inputStream, targetFile.toPath());
             }
-
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -39,5 +38,4 @@ public class FileDownloader {
             downloadFile(url, targetFile);
         }
     }
-
 }

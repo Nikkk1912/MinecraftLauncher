@@ -17,6 +17,7 @@ public class ReplacementBuilder {
 //        replacements.put("launcher_name", userData.getLauncherName());
 //        replacements.put("launcher_version", userData.getLauncherVersion());
         replacements.put("user_type", "mojang"); // Default value
+        replacements.put("user_properties", "\"{}\"");
 
         // Offline mode for development purposes
         if (offlineMode) {

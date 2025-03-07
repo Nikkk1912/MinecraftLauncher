@@ -44,7 +44,6 @@ public class ConfigService {
     }
 
     private void createDefaultProperties(File file) {
-        // Save the properties to the file
         try (FileOutputStream fos = new FileOutputStream(file)) {
             properties.store(fos, "Default Launcher Configuration");
             System.out.println("Created default settings file at: " + configFilePath);
@@ -88,5 +87,9 @@ public class ConfigService {
 
     public String getVersionJarFilePath(String version) {
         return Path.of(launcherFolderPath).resolve(".minecraft").resolve("versions").resolve(version).resolve(version + ".jar").toFile().toString();
+    }
+
+    public String getBinDir() {
+        return Path.of(launcherFolderPath).resolve(".minecraft").resolve("bin").toString();
     }
 }

@@ -20,7 +20,6 @@ public class VersionJarHandler {
 
         File targetFile = versionsPath.resolve(version).resolve(version + ".jar").toFile();
 
-//        System.out.println("Downloading version jar: " + version + " by " + link);
         CompletableFuture.runAsync(() -> FileDownloader.downloadFile(link, targetFile), executor);
 
         System.out.println("Version downloading complete");
