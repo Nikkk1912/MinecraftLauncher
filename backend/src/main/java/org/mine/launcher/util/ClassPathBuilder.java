@@ -19,14 +19,14 @@ public class ClassPathBuilder {
     }
 
     public String buildClasspath(JsonNode versionJson) {
-        String librariesDir = configService.getLibrariesDir();
+        String librariesDir = configService.getLibrariesDirectory().toString();
         List<String> libraryPaths = VersionJsonParser.getLibraries(versionJson);
 
         String classpath = libraryPaths.stream()
                 .map(path -> new File(librariesDir, path).getAbsolutePath())
                 .collect(Collectors.joining(File.pathSeparator));
 
-        String versionJar = configService.getVersionJarFilePath(VersionJsonParser.getVersion(versionJson));
+        String versionJar = configService.getVersionJarFilePath(VersionJsonParser.getVersion(versionJson)).toString();
 
         return "\"" + classpath  + File.pathSeparator + versionJar + "\"" ;
     }

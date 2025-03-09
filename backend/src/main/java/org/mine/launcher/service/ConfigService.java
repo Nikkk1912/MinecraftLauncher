@@ -1,5 +1,7 @@
 package org.mine.launcher.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -14,6 +16,7 @@ public class ConfigService {
     private final String configFilePath;
     private final String launcherFolderPath;
     private final Properties properties = new Properties();
+    private final Logger logger = LoggerFactory.getLogger(ConfigService.class);
 
     public ConfigService() {
         String os = System.getProperty("os.name").toLowerCase();
@@ -39,16 +42,16 @@ public class ConfigService {
         try (FileInputStream fis = new FileInputStream(file)) {
             properties.load(fis);
         } catch (IOException e) {
-            System.err.println("Error loading settings file: " + e.getMessage());
+            logger.error("Error loading settings file: {}", e.getMessage());
         }
     }
 
     private void createDefaultProperties(File file) {
         try (FileOutputStream fos = new FileOutputStream(file)) {
             properties.store(fos, "Default Launcher Configuration");
-            System.out.println("Created default settings file at: " + configFilePath);
+            logger.info("Created default settings file at: {}", configFilePath);
         } catch (IOException e) {
-            System.err.println("Error creating settings file: " + e.getMessage());
+            logger.error("Error creating settings file: {}", e.getMessage());
         }
     }
 
@@ -61,7 +64,7 @@ public class ConfigService {
         try (FileOutputStream fos = new FileOutputStream(configFilePath)) {
             properties.store(fos, "Launcher Configuration");
         } catch (IOException e) {
-            System.err.println("Error saving settings: " + e.getMessage());
+            logger.error("Error saving settings: {}", e.getMessage());
         }
     }
 
@@ -69,27 +72,35 @@ public class ConfigService {
         return Path.of(launcherFolderPath);
     }
 
-    public String getGameDirectory() {
-        return Path.of(launcherFolderPath).resolve(".minecraft").toString();
+    public Path getGameDirectory() {
+        return Path.of(launcherFolderPath).resolve(".minecraft");
     }
 
-    public String getAssetsDir() {
-        return Path.of(launcherFolderPath).resolve(".minecraft").resolve("assets").toString();
+    public Path getJvmDirectory() {
+        return Path.of(launcherFolderPath).resolve("jvm");
     }
 
-    public String getLibrariesDir() {
-        return Path.of(launcherFolderPath).resolve(".minecraft").resolve("libraries").toString();
+    public Path getAssetsDirectory() {
+        return Path.of(launcherFolderPath).resolve(".minecraft").resolve("assets");
     }
 
-    public String getJavaRunFile(String javaType) {
-        return Path.of(launcherFolderPath).resolve("jvm").resolve(javaType).resolve("bin").resolve("java.exe").toFile().toString();
+    public Path getLibrariesDirectory() {
+        return Path.of(launcherFolderPath).resolve(".minecraft").resolve("libraries");
     }
 
-    public String getVersionJarFilePath(String version) {
-        return Path.of(launcherFolderPath).resolve(".minecraft").resolve("versions").resolve(version).resolve(version + ".jar").toFile().toString();
+    public Path getVersionsDirectory() {
+        return Path.of(launcherFolderPath).resolve(".minecraft").resolve("versions");
     }
 
-    public String getBinDir() {
-        return Path.of(launcherFolderPath).resolve(".minecraft").resolve("bin").toString();
+    public File getJavaExecutableFilePath(String javaType) {
+        return Path.of(launcherFolderPath).resolve("jvm").resolve(javaType).resolve("bin").resolve("java.exe").toFile();
+    }
+
+    public File getVersionJarFilePath(String version) {
+        return Path.of(launcherFolderPath).resolve(".minecraft").resolve("versions").resolve(version).resolve(version + ".jar").toFile();
+    }
+
+    public Path getBinDirectory() {
+        return Path.of(launcherFolderPath).resolve(".minecraft").resolve("bin");
     }
 }

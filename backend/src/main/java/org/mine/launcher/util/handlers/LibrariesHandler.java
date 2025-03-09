@@ -1,8 +1,11 @@
 package org.mine.launcher.util.handlers;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import org.mine.launcher.service.InstallationService;
 import org.mine.launcher.util.FileDownloader;
 import org.mine.launcher.util.OsDetector;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -17,6 +20,7 @@ import java.util.zip.ZipFile;
 @Component
 public class LibrariesHandler {
     private static final ExecutorService executor = Executors.newFixedThreadPool(10);
+    private static final Logger logger = LoggerFactory.getLogger(LibrariesHandler.class);
 
     public static void handleLibraries(Path librariesPath, boolean isReload, JsonNode versionJson) {
         File libFolder = librariesPath.toFile();
@@ -32,7 +36,7 @@ public class LibrariesHandler {
 
         JsonNode libraries = versionJson.get("libraries");
         if (libraries == null) {
-            System.err.println("No libraries found in the provided JSON.");
+            logger.warn("No libraries found in the provided JSON.");
             return;
         }
 
@@ -48,7 +52,7 @@ public class LibrariesHandler {
             JsonNode classifiers = downloadsNode.path("classifiers");
 
             if (artifact.isMissingNode() && classifiers.isMissingNode()) {
-                System.out.println("Skipping library (No artifact or classifiers): " + lib);
+                logger.debug("Skipping library (No artifact or classifiers): {}", lib);
                 continue;
             }
 
@@ -81,11 +85,11 @@ public class LibrariesHandler {
                         }, executor);
                     }
                 } else {
-                    System.out.println("No native library found for " + osName);
+                    logger.warn("No native library found for {}", osName);
                 }
             }
         }
-        System.out.println("Libraries downloading complete");
+        logger.info("Libraries downloading complete");
     }
 
     private static boolean isAllowed(JsonNode lib, String osName) {

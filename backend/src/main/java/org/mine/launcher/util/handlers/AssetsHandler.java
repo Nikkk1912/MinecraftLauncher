@@ -2,6 +2,9 @@ package org.mine.launcher.util.handlers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.mine.launcher.util.FileDownloader;
+import org.mine.launcher.util.api.JvmClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -17,11 +20,12 @@ public class AssetsHandler {
     private static final ExecutorService executor = Executors.newFixedThreadPool(10);
     private static final String ASSETS_BASE_URL = "https://resources.download.minecraft.net/";
     private static final ConcurrentHashMap<String, Boolean> downloadingAssets = new ConcurrentHashMap<>();
+    private static final Logger logger = LoggerFactory.getLogger(AssetsHandler.class);
 
     public static void handleAssets(Path assetsPath, boolean isReload, JsonNode assetsIndexJson) {
         JsonNode objects = assetsIndexJson.get("objects");
         if (objects == null) {
-            System.err.println("No objects found in asset index.");
+            logger.error("No objects found in asset index.");
             return;
         }
 
@@ -53,6 +57,6 @@ public class AssetsHandler {
                 }, executor);
             }
         }
-        System.out.println("Assets downloading complete");
+        logger.info("Assets downloading complete");
     }
 }

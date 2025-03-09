@@ -1,13 +1,17 @@
 package org.mine.launcher.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 
 public class FileDownloader {
+
+    private static final Logger logger = LoggerFactory.getLogger(FileDownloader.class);
 
     public static void downloadFile(String url, File targetFile) {
         if (targetFile.exists()) {
@@ -32,7 +36,7 @@ public class FileDownloader {
             if (targetFile.exists()) {
                 boolean deleted = targetFile.delete();
                 if (!deleted) {
-                    System.err.println("Failed to delete existing file: " + targetFile.getAbsolutePath());
+                    logger.error("Failed to delete existing file: {}", targetFile.getAbsolutePath());
                 }
             }
             downloadFile(url, targetFile);

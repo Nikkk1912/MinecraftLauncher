@@ -8,9 +8,10 @@ import org.mine.launcher.util.ClassPathBuilder;
 import org.mine.launcher.util.CommandRunner;
 import org.mine.launcher.util.DebugUtil;
 import org.mine.launcher.util.ReplacementBuilder;
-import org.mine.launcher.util.api.AssetsClient;
 import org.mine.launcher.util.api.VersionClient;
 import org.mine.launcher.util.jsonParsers.VersionJsonParser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class LaunchService {
     private final ConfigService configService;
     private final CommandRunner commandRunner;
     private final ClassPathBuilder classPathBuilder;
+    private static final Logger logger = LoggerFactory.getLogger(LaunchService.class);
 
     public LaunchService(VersionClient versionClient, ConfigService configService, CommandRunner commandRunner, ClassPathBuilder classPathBuilder) {
         this.versionClient = versionClient;
@@ -37,23 +39,24 @@ public class LaunchService {
 
         UserData userData = new UserData(
                 configService.getSetting("playerName"),
-                "000000000000", //placeholder
-                "000000000000", //placeholder
-                configService.getGameDirectory(),
-                configService.getAssetsDir(),
+                "0",
+                "0",
+                configService.getGameDirectory().toString(),
+                configService.getAssetsDirectory().toString(),
                 VersionJsonParser.getAssetIndex(versionJson),
                 VersionJsonParser.getVersion(versionJson),
-                "ShedevroLauncher",
+                "Shedevro Launcher",
                 "1"
         );
 
-        String javaRunFile = configService.getJavaRunFile(VersionJsonParser.getJavaComponent(versionJson));
+        String javaRunFile = configService.getJavaExecutableFilePath(VersionJsonParser.getJavaComponent(versionJson)).toString();
+        logger.debug("Java run file: {}", javaRunFile);
 
         List<String> command = new ArrayList<>();
         command.add(javaRunFile);
-        command.add("-Xms" + configService.getSetting("minRam") + "M"); // Max RAM allocation
-        command.add("-Xmx" + configService.getSetting("maxRam") + "M"); // Min RAM allocation
-        command.add("-Djava.library.path=" + configService.getBinDir());
+        command.add("-Xms" + configService.getSetting("minRam") + "M");
+        command.add("-Xmx" + configService.getSetting("maxRam") + "M");
+        command.add("-Djava.library.path=" + configService.getBinDirectory());
 
         command.add("-cp");
         command.add(classPathBuilder.buildClasspath(versionJson));
@@ -66,8 +69,7 @@ public class LaunchService {
 
         String commandString = String.join(" ", command);
         DebugUtil.logCommand(commandString);
-        System.out.println("Launching Minecraft with command: " + commandString);
+        logger.debug("Launching Minecraft with command: {}", commandString);
         commandRunner.runCommand(commandString);
-
     }
 }

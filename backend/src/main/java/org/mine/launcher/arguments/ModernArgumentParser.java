@@ -40,5 +40,4 @@ public class ModernArgumentParser implements ArgumentParser{
             args.add(ArgumentUtils.replacePlaceholders(value.asText(), replacements));
         }
     }
-
 }
