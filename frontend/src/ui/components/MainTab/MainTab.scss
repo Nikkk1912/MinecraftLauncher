@@ -1,0 +1,64 @@
+@use '../../styles/_variables.scss';
+
+.middle-tab {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+}
+
+.MainTab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: space-around;
+}
+
+.version-text {
+  font-size: 2rem;
+}
+
+.version-status {
+  font-size: 1.5rem;
+}
+
+.button {
+  font-size: 1.5rem;
+  padding: 2rem;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 3rem 0 3rem 0;
+  width: 25rem;
+}
+
+.nick-input[type=text] {
+  height: 3rem;
+  margin: 2rem 0 2rem 0;
+  background-color: variables.$primary-color;
+  border: none;
+  border-bottom: 0.2rem solid variables.$accent-color;
+  outline: none;
+  font-size: 2rem;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.nick-input[type=text]:focus {
+  border: 0.2rem solid variables.$accent-color;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+.nick-input.error-border {
+  border-bottom: 0.2rem solid variables.$error-color;
+}
+
+.launch-button {
+  background-color: variables.$ready-to-launch;
+  color: variables.$main-text;
+}
+
+.install-button {
+  background-color: variables.$ready-to-install;
+  color: variables.$main-text;
+}

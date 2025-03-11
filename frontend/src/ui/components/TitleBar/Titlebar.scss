@@ -10,7 +10,7 @@
   justify-content: center;
   align-items: center;
   background: variables.$secondary-color;
-  color: white;
+  color: variables.$main-text;
   -webkit-app-region: drag;
 
   .title {
@@ -20,6 +20,8 @@
     font-size: 2rem;
     font-weight: 500;
     font-family: variables.$font-stack;
+    padding-left: calc(11vh + 3 * 10px + 3 * 10px);
+    padding-top: 15px;
   }
 
   .window-controls {
@@ -30,13 +32,13 @@
     .btn {
       border: none;
       background: none;
-      color: white;
+      color: variables.$main-text;
       font-size: 14px;
       cursor: pointer;
       -webkit-app-region: no-drag;
 
       &.close:hover {
-        color: red;
+        color: variables.$error-color;
       }
     }
 

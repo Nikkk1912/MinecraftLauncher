@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/launch")
-public class ExecuteController {
+public class LaunchController {
 
     private final LaunchService launchService;
     private final ConfigService configService;
 
-    public ExecuteController(LaunchService launchService, ConfigService configService) {
+    public LaunchController(LaunchService launchService, ConfigService configService) {
         this.launchService = launchService;
         this.configService= configService;
     }
@@ -21,6 +21,7 @@ public class ExecuteController {
                           @RequestParam String playerName,
                           @RequestParam(name = "offlineMode", required = false, defaultValue = "true") boolean isOffline) {
         configService.saveSetting("playerName", playerName);
+        configService.saveSetting("lastLaunchedVersion", version);
         launchService.launchVersion(version, isOffline);
         return "Game is running";
     }
