@@ -47,6 +47,10 @@ public class ConfigService {
     }
 
     private void createDefaultProperties(File file) {
+
+        properties.setProperty("maxRam", "4096");
+        properties.setProperty("minRam", "2048");
+
         try (FileOutputStream fos = new FileOutputStream(file)) {
             properties.store(fos, "Default Launcher Configuration");
             logger.info("Created default settings file at: {}", configFilePath);
