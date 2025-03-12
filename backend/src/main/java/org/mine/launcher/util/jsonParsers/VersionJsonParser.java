@@ -2,6 +2,10 @@ package org.mine.launcher.util.jsonParsers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class VersionJsonParser {
 
     public static String getAssetIndex(JsonNode versionJson) {
@@ -32,5 +36,22 @@ public class VersionJsonParser {
 
     public static String getMainClass(JsonNode versionJson) {
         return versionJson.get("mainClass").asText();
+    }
+
+    public static String getVersion(JsonNode versionJson) {
+        return versionJson.get("id").asText();
+    }
+
+    public static List<String> getLibraries(JsonNode versionJson) {
+        List<String> libraries = new ArrayList<>();
+        JsonNode librariesNode = versionJson.path("libraries");
+
+        for (JsonNode library : librariesNode) {
+            JsonNode downloads = library.path("downloads").path("artifact");
+            if (downloads.has("path")) {
+                libraries.add(downloads.get("path").asText());
+            }
+        }
+        return libraries;
     }
 }

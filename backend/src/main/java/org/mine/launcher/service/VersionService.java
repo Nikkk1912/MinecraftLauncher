@@ -1,11 +1,15 @@
 package org.mine.launcher.service;
 
+import org.mine.launcher.exceptions.NoInstalledVersionException;
 import org.mine.launcher.util.api.VersionManifestClient;
 import org.mine.launcher.util.jsonParsers.VersionManifestJsonParser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -13,6 +17,7 @@ public class VersionService {
 
     private final ConfigService configService;
     private final VersionManifestClient versionManifestClient;
+    private static final Logger logger = LoggerFactory.getLogger(VersionService.class);
 
     public VersionService(ConfigService configService, VersionManifestClient versionManifestClient) {
         this.configService = configService;
@@ -20,8 +25,7 @@ public class VersionService {
     }
 
     public List<String> getInstalledVersions() {
-        String versionsPath = configService.getSetting("minecraft_home") + "\\versions";
-
+        String versionsPath = configService.getVersionsDirectory().toString();
         List<String> versions = new ArrayList<>();
 
         File versionsFolder = new File(versionsPath);
@@ -30,16 +34,15 @@ public class VersionService {
             String[] directories = versionsFolder.list((current, name) -> new File(current, name).isDirectory());
 
             if (directories != null) {
-                return List.of(directories);
-            }
-            // TODO create error handling
-            else {
-                System.out.println("No folders found in the 'versions' directory.");
+                return new ArrayList<>(Arrays.asList(directories));
+            } else {
+                logger.warn("No folders found in the 'versions' directory.");
+                throw new NoInstalledVersionException();
             }
         } else {
-            System.out.println("The specified path does not exist or is not a directory.");
+            logger.error("The specified path does not exist or is not a directory.");
+            return versions;
         }
-        return versions;
     }
 
     public List<String> getAllVersions() {

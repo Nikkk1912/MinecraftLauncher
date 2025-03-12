@@ -1,42 +1,77 @@
 import React, {useState, useEffect} from "react";
-import axios from 'axios';
 import './VersionTab.scss';
+import {getAllVersions, getInstalledVersions} from "../../axios/versionsService.ts";
+import {getLastLaunchedVersion} from "../../axios/configService.ts";
 
 type MinecraftVersion = string;
 type InstalledVersion = string;
 
 interface VersionTabProps {
     onVersionSelect: (version: string, isInstalled: boolean) => void;
+    setRefreshFunction?: (refreshFn: () => void) => void;
 }
 
-const VersionTab: React.FC<VersionTabProps> = ({ onVersionSelect }: VersionTabProps) => {
+const VersionTab: React.FC<VersionTabProps> = ({ onVersionSelect, setRefreshFunction }: VersionTabProps) => {
     const [versions, setVersions] = useState<MinecraftVersion[]>([]);
+    const [selectedVersion, setSelectedVersion] = useState<MinecraftVersion | null>(null);
     const [installedVersions, setInstalledVersions] = useState<InstalledVersion[]>([]);
     const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>({});
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    const fetchVersions = () => {
+    const fetchVersions = async () => {
         setIsLoading(true);
         setError(null);
 
-        axios.get("http://localhost:8000/api/version/installed")
-            .then(async installedResponse => {
-                const installed = installedResponse.data;
+        try {
+            const installedResponse = await getInstalledVersions();
+            const installed = installedResponse.data;
 
-                const allResponse = await axios.get("http://localhost:8000/api/version/all");
-                const allVersions = Array.from(new Set([...allResponse.data, ...installed]));
-                setVersions(allVersions);
-                setInstalledVersions(installed);
-            })
-            .catch(err => {
-                console.error("Error fetching versions:", err);
-                setError("Reload");
-            })
-            .finally(() => setIsLoading(false)); // Stop loading when done
+            const allResponse = await getAllVersions();
+            const allVersions = Array.from(new Set([...allResponse.data, ...installed]));
+            setVersions(allVersions);
+            setInstalledVersions(installed);
+        } catch (err) {
+            console.error("Error fetching versions:", err);
+            setError("Reload");
+        } finally {
+            setIsLoading(false);
+        }
     };
 
-    useEffect(() => { fetchVersions(); }, []);
+    const fetchLastLaunchedVersion = async () => {
+        try {
+            const response = await getLastLaunchedVersion();
+            const lastLaunchedVersion = response.data;
+            if (installedVersions.includes(lastLaunchedVersion)) {
+                setSelectedVersion(lastLaunchedVersion);
+                onVersionSelect(lastLaunchedVersion, isInstalled(lastLaunchedVersion));
+            }
+        } catch (error) {
+            console.error("Error fetching last launched version:", error);
+        }
+    };
+
+    useEffect(() => {
+        fetchVersions();
+    }, []);
+
+    useEffect(() => {
+        if (setRefreshFunction) {
+            setRefreshFunction(fetchVersions);
+        }
+    }, [setRefreshFunction]);
+
+    useEffect(() => {
+        if (installedVersions.length > 0) {
+            fetchLastLaunchedVersion();
+        }
+    }, [installedVersions]);
+
+    const handleVersionSelect = (version: MinecraftVersion) => {
+        setSelectedVersion(version);
+        onVersionSelect(version, isInstalled(version));
+    };
 
     if (isLoading) { return <div style={{textAlign: "center", padding: "20px"}}> Loading... </div>; }
     if (error) { fetchVersions(); }
@@ -47,31 +82,25 @@ const VersionTab: React.FC<VersionTabProps> = ({ onVersionSelect }: VersionTabPr
         const aParts = parseVersion(a);
         const bParts = parseVersion(b);
 
-        // Compare major versions first
         if (aParts[0] !== bParts[0]) return bParts[0] - aParts[0];
-
-        // Compare minor versions next
         if (aParts[1] !== bParts[1]) return bParts[1] - aParts[1];
 
-        return 0; // If they're identical, keep order
+        return 0;
     };
 
     const groupVersions = () => {
         return versions.reduce((groups: Record<string, MinecraftVersion[]>, version) => {
-            let groupKey = "Snapshots"; // Default to "Snapshots"
+            let groupKey = "Snapshots";
 
             if (version.toLowerCase().includes("forge")) {
                 groupKey = "Forge";
             } else if (version.toLowerCase().includes("pre") || version.toLowerCase().includes("rc")) {
-                // Handles "pre" and "rc" versions
                 groupKey = "Others";
             } else if (/^\d+\.\d+$/.test(version)) {
-                // Matches "1.21" (two numbers)
                 groupKey = version;
             } else if (/^\d+\.\d+\.\d+$/.test(version)) {
-                // Matches "1.21.1" (three numbers)
                 const parts = version.split('.');
-                groupKey = `${parts[0]}.${parts[1]}`; // Convert "1.21.1" → "1.21"
+                groupKey = `${parts[0]}.${parts[1]}`;
             }
 
             if (!groups[groupKey]) {
@@ -105,9 +134,7 @@ const VersionTab: React.FC<VersionTabProps> = ({ onVersionSelect }: VersionTabPr
     };
 
     return (
-        <div className="scrollable-container"
-        // onClick={() => fetchVersions()}
-        >
+        <div className="scrollable-container">
             {sortedGroups
                 .map(majorVersion => (
                     <div key={majorVersion} className="version-group-container">
@@ -129,8 +156,8 @@ const VersionTab: React.FC<VersionTabProps> = ({ onVersionSelect }: VersionTabPr
                                 {groupedVersions[majorVersion].map(version => (
                                     <div
                                         key={version}
-                                        className={`version-item ${isInstalled(version) ? 'installed' : 'not-installed'}`}
-                                        onClick={() => onVersionSelect(version, isInstalled(version))}
+                                        className={`version-item ${isInstalled(version) ? 'installed' : 'not-installed'} ${selectedVersion === version ? 'selected' : ''}`}
+                                        onClick={() => handleVersionSelect(version)}
                                     >
                                         {version}
                                     </div>

@@ -3,6 +3,8 @@ package org.mine.launcher.util.api;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.mine.launcher.service.ConfigService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -16,6 +18,7 @@ import java.nio.file.StandardCopyOption;
 public class AssetsClient {
     private final Path assetsIndexesFolderPath;
     private final ObjectMapper objectMapper;
+    private final Logger logger = LoggerFactory.getLogger(AssetsClient.class);
 
     public AssetsClient(ConfigService configService, ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
@@ -45,7 +48,6 @@ public class AssetsClient {
     private JsonNode downloadAssetIndex(Path assetIndexFile, String assetIndexUrl) {
         try {
             Files.createDirectories(assetsIndexesFolderPath);
-            System.out.println("Downloading asset index: " + assetIndexUrl);
 
             HttpURLConnection connection = (HttpURLConnection) new URL(assetIndexUrl).openConnection();
             connection.setRequestMethod("GET");
@@ -54,8 +56,10 @@ public class AssetsClient {
                 Files.copy(inputStream, assetIndexFile, StandardCopyOption.REPLACE_EXISTING);
             }
 
+            logger.info("Assets index file downloaded");
             return objectMapper.readTree(assetIndexFile.toFile());
         } catch (IOException e) {
+            logger.error("Failed to download asset index from: {}", assetIndexUrl);
             throw new RuntimeException("Failed to download asset index from: " + assetIndexUrl, e);
         }
     }

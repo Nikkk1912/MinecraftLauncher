@@ -22,14 +22,14 @@
 
 .group-title {
   cursor: pointer;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 5px;
   background-color: #4b4b4b;
-  color: white;
+  color: variables.$main-text;
 }
 
 .group-title:hover {
@@ -65,4 +65,9 @@
 .not-installed {
   background-color: grey;
   color: lightgray;
+}
+
+.selected {
+  border-left: 10px solid variables.$accent-color;
+  border-right: 10px solid variables.$accent-color;
 }

@@ -6,6 +6,9 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.mine.launcher.service.ConfigService;
+import org.mine.launcher.util.handlers.JvmHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -23,6 +26,7 @@ public class JvmClient {
     private final Path jvmPath;
     private final ObjectMapper objectMapper;
     private final String jvmManifestUrl;
+    private final Logger logger = LoggerFactory.getLogger(JvmClient.class);
 
     public JvmClient(ConfigService configService, ObjectMapper objectMapper, @Value("${mojang.api.javaManifest}") String jvmManifestUrl) {
         this.jvmPath = configService.getLauncherFolderPath();
@@ -49,7 +53,7 @@ public class JvmClient {
         try {
             File parentDir = manifestFile.getParentFile();
             if (!parentDir.exists() && !parentDir.mkdirs()) {
-                System.err.println("Failed to create directories for manifest file: " + parentDir);
+                logger.error("Failed to create directories for manifest file: {}", parentDir);
                 return null;
             }
 
