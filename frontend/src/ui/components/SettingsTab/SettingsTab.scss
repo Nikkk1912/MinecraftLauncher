@@ -1,0 +1,124 @@
+@use '../../styles/_variables.scss';
+
+.settings-tab {
+  width: 100%;
+  margin-bottom: 1rem;
+  background-color: variables.$primary-color;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  .settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    cursor: pointer;
+    background-color: variables.$plank-color;
+
+    h2 {
+      margin: 0;
+      font-size: 1.5rem;
+      color: variables.$plank-hover-color;
+    }
+
+    .arrow {
+      font-size: 1.2rem;
+      transition: transform 0.3s ease;
+      color: variables.$main-text;
+    }
+  }
+
+  .settings-header:hover {
+    background-color: variables.$plank-hover-color;
+    border-radius: 5px;
+
+    h2 {
+      margin: 0;
+      font-size: 1.5rem;
+      color: variables.$plank-color;
+    }
+
+    .arrow {
+      color: variables.$plank-color;
+    }
+  }
+
+  .settings-content {
+    padding: 1rem;
+
+    .setting-field {
+      margin-bottom: 1.5rem;
+
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-size: 1.2rem;
+        color: white;
+      }
+
+      .nick-input {
+        width: 100%;
+
+        &.changed {
+          border-color: yellow;
+          border-bottom-color: yellow;
+        }
+      }
+
+      .path-input[type=text] {
+        height: 2.5rem;
+        width: 100%;
+        margin: 0.5rem 0;
+        padding: 0 0.5rem;
+        background-color: variables.$primary-color;
+        border: none;
+        border-bottom: 0.2rem solid variables.$accent-color;
+        outline: none;
+        font-size: 0.8rem;
+        box-sizing: border-box;
+        color: variables.$main-text;
+        text-align: center;
+
+        &:focus {
+          border: 0.2rem solid variables.$accent-color;
+          border-radius: 3px;
+          box-sizing: border-box;
+        }
+
+        &.changed {
+          border-color: yellow;
+          border-bottom-color: yellow;
+        }
+      }
+
+      .unsaved-changes {
+        color: yellow;
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+      }
+    }
+
+    .save-button {
+      display: block;
+      width: 100%;
+      padding: 1rem;
+      background-color: variables.$accent-color;
+      color: variables.$main-text;
+      border: none;
+      border-radius: 4px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: darken(variables.$accent-color, 10%);
+      }
+
+      &:disabled {
+        background-color: gray;
+        cursor: not-allowed;
+      }
+    }
+  }
+}

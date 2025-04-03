@@ -28,13 +28,13 @@
   align-items: center;
   justify-content: center;
   padding: 5px;
-  background-color: #4b4b4b;
+  background-color: variables.$plank-color;
   color: variables.$main-text;
 }
 
 .group-title:hover {
-  background-color: #e0e0e0;
-  color: #4b4b4b;
+  background-color: variables.$plank-hover-color;
+  color: variables.$plank-color;
   border-radius: 5px;
 }
 

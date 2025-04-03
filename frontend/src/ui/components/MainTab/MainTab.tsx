@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import "./MainTab.scss";
-import {getPlayerName} from "../../axios/configService.ts";
-import {installVersion} from "../../axios/installService.ts";
-import {launchVersion} from "../../axios/launchService.ts";
+import { getPlayerName } from "../../axios/configService.ts";
+import { installVersion } from "../../axios/installService.ts";
+import { launchVersion } from "../../axios/launchService.ts";
 
 type NickName = string;
 
@@ -18,15 +18,15 @@ const MainTab: React.FC<MainTabProps> = ({
                                              isInstalled,
                                              onTriggerVersionsRefresh,
                                              updateInstallationStatus,
-                                         }: MainTabProps) => {
+                                         }) => {
     const [nickName, setNickName] = useState<NickName | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState<boolean>(false); // NEW LOADING STATE
 
     const fetchSavedNickName = async () => {
         try {
             const response = await getPlayerName();
-            const savedNickName = response.data;
-            setNickName(savedNickName);
+            setNickName(response.data);
         } catch (error) {
             console.error("Error fetching saved nickname:", error);
         }
@@ -38,6 +38,7 @@ const MainTab: React.FC<MainTabProps> = ({
             return;
         }
 
+        setLoading(true);
         try {
             const response = await installVersion(version);
             console.log(response.data);
@@ -45,6 +46,8 @@ const MainTab: React.FC<MainTabProps> = ({
             onTriggerVersionsRefresh();
         } catch (error) {
             console.error("Error:", error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -54,22 +57,23 @@ const MainTab: React.FC<MainTabProps> = ({
             return;
         }
 
-        const playerNameToUse = nickName || "Player";
-
         if (!nickName) {
             setError("Please enter a player name.");
             return;
         }
 
         setError(null);
+        setLoading(true);
 
         try {
-            const response = await launchVersion(version, playerNameToUse, true);
+            const response = await launchVersion(version, nickName, true);
             console.log(response.data);
             updateInstallationStatus(true);
             onTriggerVersionsRefresh();
         } catch (error) {
             console.error("Error:", error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -81,34 +85,36 @@ const MainTab: React.FC<MainTabProps> = ({
         if (error) {
             setError(null);
         }
-
         setNickName(event.target.value);
-    }
+    };
 
     return (
         <div className="MainTab">
-            <p className={'version-text'}>{version || "No version selected"}</p>
-            <p className={'version-status'}>{isInstalled ? "Installed" : "Not installed"}</p>
+            <p className="version-text">{version || "No version selected"}</p>
+            <p className="version-status">{isInstalled ? "Installed" : "Not installed"}</p>
 
             <input
-                className={`nick-input ${nickName === null || nickName === "" ? "error-border" : ""}`}
+                className={`nick-input ${!nickName ? "error-border" : ""}`}
                 type="text"
                 placeholder="Enter nickname"
                 value={nickName ?? ""}
                 onChange={handleNickInputChange}
+                disabled={loading}
             />
 
-            {error && <div className="error-message" style={{color: 'red'}}>{error}</div>}
+            {error && <div className="error-message" style={{ color: "red" }}>{error}</div>}
 
             <button
-                className={`button ${isInstalled ? 'launch-button' : 'install-button'}`}
+                className={`button ${isInstalled ? "launch-button" : "install-button"}`}
                 onClick={() => (isInstalled ? fetchLaunch() : fetchInstall())}
-                disabled={!version}
+                disabled={!version || loading}
             >
-                {isInstalled ? 'Launch Game' : 'Install Game'}
+                {loading ? "Loading..." : isInstalled ? "Launch Game" : "Install Game"}
             </button>
+
+            {loading && <div className="loading-spinner"></div>} {}
         </div>
-    )
+    );
 };
 
 export default MainTab;

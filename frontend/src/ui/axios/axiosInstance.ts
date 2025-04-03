@@ -1,10 +1,10 @@
 import axios from 'axios';
 
 // Java spring port
-const port = 8000;
+// const port = 8000;
 
 //C sharp ASP
-// const port = 5123;
+const port = 5123;
 
 const axiosInstance = axios.create({
     baseURL: `http://localhost:${port}/api`,
